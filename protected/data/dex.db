@@ -1,0 +1,38 @@
+CREATE TABLE tbl_user
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	username VARCHAR(128) NOT NULL,
+	password VARCHAR(128) NOT NULL,
+	email VARCHAR(128) NOT NULL,
+	profile TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE tbl_equipment
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(128) NOT NULL,
+	description TEXT NOT NULL,
+	create_time INTEGER,
+	Created_user_id INTEGER
+	update_time INTEGER
+	update_user_id INTEGER
+);
+
+CREATE TABLE tbl_subcategory
+(
+	id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(128) NOT NULL,
+	description TEXT NOT NULL,
+	create_time INTEGER,
+	update_time INTEGER,
+	CONSTRAINT FK_subcategory_equipment FOREIGN KEY (equipment_id)
+		REFERENCES tbl_equipment (id) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO tbl_user (username, password, email) VALUES ('demo','$2a$10$JTJf6/XqC94rrOtzuF397OHa4mbmZrVTBOQCmYD9U.obZRUut4BoC','webmaster@example.com');
+INSERT INTO tbl_equipment (title, description, create_time, update_time) VALUES ('Heavy Machines','These are equipment that are heavy. It is meant to demonstrate how to use the application to build a complete real-world application. Complete source code may be found in the Yii releases.
+
+Feel free to try this system by creating new equipment.',1230952187,1230952187);
+INSERT INTO tbl_equipment (title, description,create_time, update_time) VALUES ('Simple Machine', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',1230952187,1230952187);
+
+INSERT INTO tbl_subcategory (title, description, create_time, equipment_id) VALUES ('Bulldozers.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',1230952187,1230952187,2);
